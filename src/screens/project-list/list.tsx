@@ -1,6 +1,18 @@
+/*
+ * @Description:
+ * @Author: YanCheng
+ * @Date: 2021-04-21 15:15:54
+ * @LastEditTime: 2021-04-21 18:00:15
+ */
 import React from "react";
+import { User, Project } from "./data";
 
-const List = ({ list, users }) => {
+interface ListProps {
+  list: Project[];
+  users: User[];
+}
+
+const List = ({ list, users }: ListProps) => {
   return (
     <table>
       <thead>
