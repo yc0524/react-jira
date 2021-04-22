@@ -2,7 +2,7 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 15:14:32
- * @LastEditTime: 2021-04-21 18:06:21
+ * @LastEditTime: 2021-04-22 09:27:53
  */
 import { useState, useEffect } from "react";
 import SearchPanel from "./search-panel";
@@ -19,7 +19,7 @@ const ProjectListScreen = () => {
     name: "",
     personId: "",
   });
-  const debouncedParam = useDebounce(param, 2000);
+  const debouncedParam = useDebounce(param, 500);
   const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     fetch(
