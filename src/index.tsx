@@ -2,7 +2,7 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 14:21:38
- * @LastEditTime: 2021-04-22 14:17:53
+ * @LastEditTime: 2021-04-22 18:38:49
  */
 import React from "react";
 import ReactDOM from "react-dom";
@@ -10,11 +10,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
+import { AuthProvider } from "./context/auth-context";
 
 loadDevTools(() =>
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </React.StrictMode>,
     document.getElementById("root")
   )
