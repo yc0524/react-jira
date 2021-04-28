@@ -2,7 +2,7 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 15:15:54
- * @LastEditTime: 2021-04-21 18:00:15
+ * @LastEditTime: 2021-04-28 09:51:47
  */
 import React from "react";
 import { User, Project } from "./data";
@@ -12,7 +12,7 @@ interface ListProps {
   users: User[];
 }
 
-const List = ({ list, users }: ListProps) => {
+export const List = ({ list, users }: ListProps) => {
   return (
     <table>
       <thead>
@@ -37,5 +37,3 @@ const List = ({ list, users }: ListProps) => {
     </table>
   );
 };
-
-export default List;

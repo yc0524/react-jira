@@ -2,17 +2,17 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 14:21:38
- * @LastEditTime: 2021-04-22 10:55:25
+ * @LastEditTime: 2021-04-28 10:08:24
  */
 import React from "react";
-import { LoginScreen } from "./screens/login";
-// import ProjectListScreen from "./screens/project-list";
-
+import { useAuth } from "./context/auth-context";
+import { UnauthenticatedApp } from "./unauthenticated-app";
+import { AuthenticatedApp } from "./authenticated-app";
 function App() {
+  const { user } = useAuth();
   return (
     <div className="App">
-      {/* <ProjectListScreen /> */}
-      <LoginScreen />
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </div>
   );
 }

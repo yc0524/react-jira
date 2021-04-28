@@ -2,17 +2,17 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 15:14:32
- * @LastEditTime: 2021-04-22 09:27:53
+ * @LastEditTime: 2021-04-28 09:52:50
  */
 import { useState, useEffect } from "react";
 import SearchPanel from "./search-panel";
-import List from "./list";
+import { List } from "./list";
 import { cleanObject } from "../../utils";
 import * as qs from "qs";
 import { useDebounce } from "../../hooks/index";
 import { User, Project } from "./data";
 
-const ProjectListScreen = () => {
+export const ProjectListScreen = () => {
   const [list, setList] = useState<Project[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [param, setParam] = useState({
@@ -46,5 +46,3 @@ const ProjectListScreen = () => {
     </div>
   );
 };
-
-export default ProjectListScreen;
