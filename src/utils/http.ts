@@ -2,10 +2,11 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-28 16:19:13
- * @LastEditTime: 2021-04-28 16:45:09
+ * @LastEditTime: 2021-05-13 14:15:13
  */
 import qs from "qs";
 import * as auth from "../auth.provider";
+import { useAuth } from "../context/auth-context";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 interface Config extends RequestInit {
@@ -15,7 +16,7 @@ interface Config extends RequestInit {
 
 export const http = async (
   endpoint: string,
-  { data, token, headers, ...customConfig }: Config
+  { data, token, headers, ...customConfig }: Config = {}
 ) => {
   const config = {
     method: "GET",
@@ -44,4 +45,10 @@ export const http = async (
       }
       return Promise.reject(data);
     });
+};
+
+export const useHttp = () => {
+  const { user } = useAuth();
+  return (...[endpoint, config]: Parameters<typeof http>) =>
+    http(endpoint, { ...config, token: user?.token });
 };

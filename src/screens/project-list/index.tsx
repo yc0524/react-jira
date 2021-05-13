@@ -2,15 +2,15 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 15:14:32
- * @LastEditTime: 2021-04-28 09:52:50
+ * @LastEditTime: 2021-05-13 14:33:55
  */
 import { useState, useEffect } from "react";
 import SearchPanel from "./search-panel";
 import { List } from "./list";
 import { cleanObject } from "../../utils";
-import * as qs from "qs";
 import { useDebounce } from "../../hooks/index";
 import { User, Project } from "./data";
+import { useHttp } from "../../utils/http";
 
 export const ProjectListScreen = () => {
   const [list, setList] = useState<Project[]>([]);
@@ -20,24 +20,21 @@ export const ProjectListScreen = () => {
     personId: "",
   });
   const debouncedParam = useDebounce(param, 500);
-  const apiUrl = process.env.REACT_APP_API_URL;
-  useEffect(() => {
-    fetch(
-      `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
-    ).then(async (res) => {
-      if (res.ok) {
-        setList(await res.json());
-      }
-    });
-  }, [debouncedParam, apiUrl]);
+  const client = useHttp();
 
   useEffect(() => {
-    fetch(`${apiUrl}/users`).then(async (res) => {
-      if (res.ok) {
-        setUsers(await res.json());
-      }
+    client("projects", { data: cleanObject(debouncedParam) }).then((res) =>
+      setList(res)
+    );
+    // eslint-disable-next-line
+  }, [debouncedParam]);
+
+  useEffect(() => {
+    client("users").then((res) => {
+      setUsers(res);
     });
-  }, [apiUrl]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>

@@ -2,16 +2,27 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-22 14:54:21
- * @LastEditTime: 2021-04-22 18:36:40
+ * @LastEditTime: 2021-05-13 14:26:31
  */
-import React, { ReactNode, useContext, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import * as auth from "../auth.provider";
 import { User } from "../screens/project-list/data";
+import { http } from "../utils/http";
 
 interface AuthForm {
   username: string;
   password: string;
 }
+
+const bootstrapUser = async () => {
+  let user = null;
+  const token = auth.getToken();
+  if (token) {
+    const data = await http("me", { token });
+    user = data.user;
+  }
+  return user;
+};
 
 const AuthContext = React.createContext<
   | {
@@ -36,6 +47,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(user);
     });
   const logout = () => auth.logout().then(() => setUser(null));
+
+  useEffect(() => {
+    bootstrapUser().then(setUser);
+  }, []);
 
   return (
     <AuthContext.Provider
