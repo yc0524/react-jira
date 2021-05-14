@@ -2,10 +2,11 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 15:15:54
- * @LastEditTime: 2021-04-28 09:51:47
+ * @LastEditTime: 2021-05-14 16:01:38
  */
 import React from "react";
 import { User, Project } from "./data";
+import { Table } from "antd";
 
 interface ListProps {
   list: Project[];
@@ -14,26 +15,29 @@ interface ListProps {
 
 export const List = ({ list, users }: ListProps) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>名称</th>
-          <th>负责人</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((project) => {
-          return (
-            <tr key={project.id}>
-              <td>{project.name}</td>
-              <td>
+    <Table
+      pagination={false}
+      rowKey="id"
+      dataSource={list}
+      columns={[
+        {
+          title: "名称",
+          dataIndex: "name",
+          sorter: (a, b) => a.name.localeCompare(b.name),
+        },
+        {
+          title: "负责人",
+          dataIndex: "respobility",
+          render(value, project) {
+            return (
+              <span>
                 {users.find((user) => user.id === project.personId)?.name ||
                   "未知"}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+              </span>
+            );
+          },
+        },
+      ]}
+    />
   );
 };

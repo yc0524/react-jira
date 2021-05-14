@@ -2,7 +2,7 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 14:21:38
- * @LastEditTime: 2021-04-22 18:38:49
+ * @LastEditTime: 2021-05-13 17:22:27
  */
 import React from "react";
 import ReactDOM from "react-dom";
@@ -10,6 +10,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
+import "antd/dist/antd.less";
 import { AuthProvider } from "./context/auth-context";
 
 loadDevTools(() =>

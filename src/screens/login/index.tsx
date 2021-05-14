@@ -2,31 +2,39 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-22 10:50:26
- * @LastEditTime: 2021-04-22 18:42:58
+ * @LastEditTime: 2021-05-13 17:49:07
  */
-import React, { FormEvent } from "react";
+import React from "react";
 import { useAuth } from "../../context/auth-context";
+import { Form, Input, Button } from "antd";
 
 export const LoginScreen = () => {
   const { user, login } = useAuth();
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const username = (e.currentTarget.elements[0] as HTMLInputElement).value;
-    const password = (e.currentTarget.elements[1] as HTMLInputElement).value;
-    login({ username, password });
+  const handleSubmit = (values: { username: string; password: string }) => {
+    login(values);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onFinish={handleSubmit}>
       {user ? <div>登录成功，用户名是{user.name}</div> : null}
-      <div>
+      <Form.Item
+        name={"username"}
+        rules={[{ required: true, message: "请输入用户名" }]}
+      >
         <label htmlFor="username">用户名</label>
-        <input type="text" id={"username"} />
-      </div>
-      <div>
+        <Input placeholder={"用户名"} type="text" id={"username"} />
+      </Form.Item>
+      <Form.Item
+        name={"password"}
+        rules={[{ required: true, message: "请输入密码" }]}
+      >
         <label htmlFor="password">密码</label>
-        <input type="password" id={"password"} />
-      </div>
-      <button type="submit">注册</button>
-    </form>
+        <Input placeholder={"密码"} type="password" id={"password"} />
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType={"submit"} type={"primary"}>
+          注册
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
