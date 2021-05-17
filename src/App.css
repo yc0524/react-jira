@@ -1,5 +1,7 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+html {
+  font-size: 62.5%;
+}
+
+html body #root .App {
+  min-height: 100vh;
 }
