@@ -2,10 +2,11 @@
  * @Description:
  * @Author: YanCheng
  * @Date: 2021-04-21 15:17:03
- * @LastEditTime: 2021-05-14 16:05:50
+ * @LastEditTime: 2021-05-17 16:59:23
  */
 import React from "react";
 import { User } from "./data";
+import { Input, Select } from "antd";
 
 interface SearchPanelProps {
   users: User[];
@@ -22,7 +23,7 @@ const SearchPanel = (props: SearchPanelProps) => {
   return (
     <form>
       <div>
-        <input
+        <Input
           value={param.name}
           onChange={(event) => {
             setParam &&
@@ -33,25 +34,25 @@ const SearchPanel = (props: SearchPanelProps) => {
           }}
         />
 
-        <select
+        <Select
           value={param.personId}
-          onChange={(event) => {
+          onChange={(value) => {
             setParam &&
               setParam({
                 ...param,
-                personId: event.target.value,
+                personId: value,
               });
           }}
         >
-          <option value={""}>负责人</option>
+          <Select.Option value={""}>负责人</Select.Option>
           {users.map((user) => {
             return (
-              <option key={user.id} value={user.id}>
+              <Select.Option key={user.id} value={user.id}>
                 {user.name}
-              </option>
+              </Select.Option>
             );
           })}
-        </select>
+        </Select>
       </div>
     </form>
   );
